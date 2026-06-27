@@ -103,6 +103,14 @@
   .addform input,.addform select{width:100%;margin:5px 0;} .addform .frow{display:flex;gap:6px;} .addform .frow input{flex:1;}
   .x{flex:0 0 auto;background:transparent;border:none;color:var(--muted);font-size:21px;line-height:1;cursor:pointer;padding:0 4px;margin-left:2px;}
   .x:active{color:var(--red);}
+  .ktab{width:100%;border-collapse:collapse;margin:4px 0 8px;font-size:13.5px;}
+  .ktab th,.ktab td{border:1px solid var(--border);padding:6px 8px;text-align:left;}
+  .ktab th{background:#202632;color:var(--muted);font-weight:500;}
+  .ktab td.ak{color:var(--green);font-weight:600;} .ktab td.da{color:var(--red);font-weight:600;}
+  .cols{display:flex;gap:10px;} .col{flex:1;min-width:0;} .col h3{font-size:14px;margin:0 0 4px;}
+  .col.akk h3{color:var(--green);} .col.dat h3{color:var(--red);}
+  .kv{padding:5px 1px;border-bottom:1px solid var(--border);} .kv:last-child{border-bottom:none;}
+  .kv b{color:var(--text);} .kv span{color:var(--muted);display:block;font-size:11.5px;}
 </style>
 </head>
 <body>
@@ -120,6 +128,7 @@
   <button data-tab="phrases">Kalıplar</button>
   <button data-tab="topics">Konular</button>
   <button data-tab="grammar">Gramer</button>
+  <button data-tab="kasus">Akk/Dat</button>
   <button data-tab="stats">İlerleme</button>
   <button data-tab="settings">Ayarlar</button>
 </nav>
@@ -234,6 +243,68 @@
     <div class="panel"><h2>Gramer müfredatı (A1→A2)</h2>
       <p class="muted mini" style="margin-top:-4px">Hazır dersler açılabilir. İskelet dersleri Lena Cowork'te doldurur.</p>
       <div id="grammarList"></div></div>
+  </section>
+
+  <!-- AKK / DAT -->
+  <section data-pane="kasus" hidden>
+    <div class="panel">
+      <h2>Personalpronomen</h2>
+      <table class="ktab">
+        <tr><th>Nominativ</th><th>Akkusativ</th><th>Dativ</th></tr>
+        <tr><td>ich</td><td class="ak">mich</td><td class="da">mir</td></tr>
+        <tr><td>du</td><td class="ak">dich</td><td class="da">dir</td></tr>
+        <tr><td>er</td><td class="ak">ihn</td><td class="da">ihm</td></tr>
+        <tr><td>es</td><td class="ak">es</td><td class="da">ihm</td></tr>
+        <tr><td>sie <span class="muted">(o, kadın)</span></td><td class="ak">sie</td><td class="da">ihr</td></tr>
+        <tr><td>wir</td><td class="ak">uns</td><td class="da">uns</td></tr>
+        <tr><td>ihr</td><td class="ak">euch</td><td class="da">euch</td></tr>
+        <tr><td>sie <span class="muted">(onlar)</span></td><td class="ak">sie</td><td class="da">ihnen</td></tr>
+        <tr><td>Sie <span class="muted">(resmi)</span></td><td class="ak">Sie</td><td class="da">Ihnen</td></tr>
+      </table>
+      <p class="muted mini">Ezber: <b>mich→mir, dich→dir, ihn→ihm, sie→ihr</b>. wir/ihr/sie'de Akk=Dat (uns, euch, ihnen).</p>
+    </div>
+
+    <div class="panel">
+      <h2>Artikel</h2>
+      <table class="ktab">
+        <tr><th>Hâl</th><th>m</th><th>n</th><th>f</th><th>çoğul</th></tr>
+        <tr><td class="da">Nom</td><td>der / ein</td><td>das / ein</td><td>die / eine</td><td>die</td></tr>
+        <tr><td class="ak">Akk</td><td class="ak">den / einen</td><td>das / ein</td><td>die / eine</td><td>die</td></tr>
+        <tr><td class="da">Dat</td><td class="da">dem / einem</td><td class="da">dem / einem</td><td class="da">der / einer</td><td class="da">den (+n)</td></tr>
+      </table>
+      <p class="muted mini"><b>Akk</b> yalnız maskulinde değişir (der→den). <b>Dat</b> her cinste değişir (-m / -m / -r / -n).</p>
+    </div>
+
+    <div class="panel">
+      <h2>Fiiller — hangisi ne alır?</h2>
+      <p class="muted mini" style="margin-top:-4px">Öğrendiğin fiillerden. Kural: bilmiyorsan Akkusativ; 🔴 listesi ezber.</p>
+      <div id="kasusVerbs"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Edatlar</h2>
+      <div class="cols">
+        <div class="col akk"><h3>🟢 Hep Akkusativ</h3>
+          <div class="kv"><b>durch</b><span>içinden</span></div>
+          <div class="kv"><b>für</b><span>için</span></div>
+          <div class="kv"><b>gegen</b><span>karşı</span></div>
+          <div class="kv"><b>ohne</b><span>-siz</span></div>
+          <div class="kv"><b>um</b><span>etrafında / saat</span></div>
+        </div>
+        <div class="col dat"><h3>🔴 Hep Dativ</h3>
+          <div class="kv"><b>aus</b><span>-den (içinden)</span></div>
+          <div class="kv"><b>bei</b><span>yanında/-de</span></div>
+          <div class="kv"><b>mit</b><span>ile</span></div>
+          <div class="kv"><b>nach</b><span>-e / sonra</span></div>
+          <div class="kv"><b>seit</b><span>-den beri</span></div>
+          <div class="kv"><b>von</b><span>-den</span></div>
+          <div class="kv"><b>zu</b><span>-e (kişi/yer)</span></div>
+        </div>
+      </div>
+      <h3 style="color:var(--blue);margin:12px 0 6px">🔵 Wechsel — Wo?→Dat / Wohin?→Akk</h3>
+      <p class="mini" style="color:var(--muted)">an, auf, hinter, in, neben, über, unter, vor, zwischen
+      <br><span style="color:var(--text)">Ich bin <b>in der</b> Stadt (Dat) · Ich gehe <b>in die</b> Stadt (Akk)</span></p>
+    </div>
   </section>
 
   <!-- İLERLEME -->
@@ -514,6 +585,19 @@ function renderGrammar(){const L=DATA.grammar||[];
     return `<div class="item"><div><div class="de">${g.num}. ${esc(g.title)}</div><div class="sub">${g.level}</div></div><div class="right">${badge}</div></div>`;
   }).join("");}
 
+/* ---- AKK / DAT başvuru ---- */
+function renderKasus(){
+  const ak=[],da=[],both=[];
+  verbList().forEach(v=>{const g=v.governs||"";const A=g.indexOf("acc")>=0,D=g.indexOf("dat")>=0;
+    if(A&&D)both.push(v);else if(D)da.push(v);else if(A)ak.push(v);});
+  const item=v=>`<div class="kv"><b>${esc(v.deRaw||v.de)}</b><span>${esc(v.tr||"")}</span></div>`;
+  const byDe=(a,b)=>(a.de||"").localeCompare(b.de||"");
+  ak.sort(byDe);da.sort(byDe);both.sort(byDe);
+  $("#kasusVerbs").innerHTML=`<div class="cols">
+    <div class="col akk"><h3>🟢 Akkusativ (${ak.length})</h3>${ak.map(item).join("")||'<p class="muted mini">—</p>'}</div>
+    <div class="col dat"><h3>🔴 Dativ (${da.length})</h3>${da.map(item).join("")||'<p class="muted mini">—</p>'}</div>
+  </div>${both.length?`<h3 style="color:var(--pink);margin:12px 0 4px">🟣 Dativ + Akkusativ — iki nesne (${both.length})</h3>${both.map(item).join("")}`:""}`;}
+
 /* ---- İSTATİSTİK ---- */
 function refreshDueBadge(){const n=allList().filter(x=>isDue(x.id)).length;const b=$("#dueBadge");b.textContent=`Bugün ${n}`;b.classList.toggle("zero",n===0);}
 function renderStats(){let k=0,l=0,nw=0,due=0;const A=allList();
@@ -551,7 +635,7 @@ function refreshAll(){rebuildCats();renderVocab();renderVerbs();renderPhrases();
 $$("#tabs button").forEach(b=>b.onclick=()=>{$$("#tabs button").forEach(x=>x.classList.toggle("active",x===b));
   $$("section[data-pane]").forEach(s=>s.hidden=s.dataset.pane!==b.dataset.tab);const t=b.dataset.tab;
   if(t==="stats")renderStats();if(t==="vocab")renderVocab();if(t==="verbs")renderVerbs();if(t==="phrases")renderPhrases();
-  if(t==="topics")renderTopics();if(t==="grammar")renderGrammar();if(t==="practice")nextEx();window.scrollTo(0,0);});
+  if(t==="topics")renderTopics();if(t==="grammar")renderGrammar();if(t==="kasus")renderKasus();if(t==="practice")nextEx();window.scrollTo(0,0);});
 ["vQ","vCat"].forEach(id=>$("#"+id).addEventListener("input",renderVocab));
 ["vbQ","vbCat"].forEach(id=>$("#"+id).addEventListener("input",renderVerbs));
 ["phQ","phCat"].forEach(id=>$("#"+id).addEventListener("input",renderPhrases));
